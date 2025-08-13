@@ -7,9 +7,17 @@ let tentativas = 1;
 function exibirMensagemNaTela(Tag, texto){
     let campo = document.querySelector(Tag);
     campo.innerHTML = texto;
+     if ('speechSynthesis' in window) {
+        let utterance = new SpeechSynthesisUtterance(texto);
+        utterance.lang = 'pt-BR'; 
+        utterance.rate = 1.2; 
+        window.speechSynthesis.speak(utterance); 
+    } else {
+        console.log("Web Speech API não suportada neste navegador.");
+    }  
 }
 function exibirMensagemInicial(){
-exibirMensagemNaTela('h1', 'Bem-vindo ao Jogo de Adivinhação');
+exibirMensagemNaTela('h1', 'Jogo de Adivinhação');
 exibirMensagemNaTela('p', 'Tente adivinhar o número que estou pensando entre 1 e 10');
 }
 

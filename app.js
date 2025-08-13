@@ -1,11 +1,8 @@
-//let titulo = document.querySelector('h1');
-//titulo.innerHTML = 'Seja bem-vindo! Ao Jogo de Adivinhação';
-
-//let paragrafo = document.querySelector('p');
-//paragrafo.innerHTML = 'Adivinhe o número que estou pensando entre 1 e 10';
-
+let listaDeNumerosSorteados = [];
+let limiteTentativas = 10;
 let numeroSecreto = gerarNumeroAleatorio();
 let tentativas = 1;
+
 
 function exibirMensagemNaTela(Tag, texto){
     let campo = document.querySelector(Tag);
@@ -37,7 +34,19 @@ function verificarChute(){
 }
 
 function gerarNumeroAleatorio(){
-    return parseInt(Math.random() * 10) + 1;   
+    let numeroEscolhido = parseInt(Math.random() * limiteTentativas) + 1;
+    let quantidadeNumerosSorteados = listaDeNumerosSorteados.length;
+
+    if(quantidadeNumerosSorteados === limiteTentativas){
+        listaDeNumerosSorteados = [];
+    }
+
+    if(listaDeNumerosSorteados.includes(numeroEscolhido)){
+        return gerarNumeroAleatorio();
+    } else {
+        listaDeNumerosSorteados.push(numeroEscolhido);
+        return numeroEscolhido;
+    }   
 }
 
 function limparInput(){
